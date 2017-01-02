@@ -10,7 +10,21 @@ namespace VkusotiikiCrawler
 {
     public class Recipe
     {
-        //public static readonly char[] TRIM_CHRACTERS = new char[3] { ' ', '\r', '\n' };
+        public static readonly Dictionary<string, string> InstructionFixes = new Dictionary<string, string>()
+            {
+                { @"\.\s?", ". " },
+                { @"!\s?",  "! " },
+                { @"([. ]*)?&nbsp;([. ]*)?", ". " },
+                { @"([! ]*)?&nbsp;([! ]*)?", "! " },
+                { @"([ ]*)?&ndash;([ ]*)?", " - "},
+                { "(([ ]*)?(\\r\\n)+([ ]*)?)+", " " },
+                { "([ ]*)?&ldquo;([ ]*)?", " \""},
+                { "([ ]*)?&rdquo;([ ]*)?", "\" "},
+                { "([ ]*)&bdquo;([ ]*)?", " \""},
+                { "([ ]*)&deg;([ ]*)?", ""},
+                { "([ ]*)&quot;([ ]*)?", " \" "}
+            };
+
         public readonly static string[] FORBIDDEN_TITLES = new string[] { "италиан", "турск", "индий", "паста", "спагети", "палачинк",
         "англий", "арабск", "макарон", "спагети", "грузинск", "мъфин", "джинджифил", "сандвич", "пудинг", "торта", "кекс", "топено",
         "сладолед", "немск", "африка", "рикота", "талиатели", "бутер", "болонезе", "ризото", "бургер", "пай", "пица", "фъстъч",
@@ -21,7 +35,8 @@ namespace VkusotiikiCrawler
         "киш", "канелон", "бонбон", "баклав", "аспержи", "филипин", "брускет", "хапки", "ориенталск", "кебап", "синьо", "мус", "тарталет",
         "брауни", "моцарела", "пармезан", "брауни", "омлет", "поничк", "ратату", "персийск", "гризини", "хавайск", "киноа", "трева",
         "суфле", "гръцк", "шейк", "смути", "кейк", "портокал", "банан", "марината", "парфе", "алжирск", "кроасан", "еклер", "тоскан",
-        "сръбск", "крилца", "маршмелоу", "герман", "сельодка", "щрудел", "гулаш", "унгарск", "касерола", "мексик", "кордон-бльо", "булгур"};
+        "сръбск", "крилца", "маршмелоу", "герман", "сельодка", "щрудел", "гулаш", "унгарск", "касерола", "мексик", "кордон-бльо", "булгур",
+        "джалеби", "бразил", "тирамису", "америка", "кренвирш", "паеля", "рьощ", "тортийа", "тортия", "плескавиц", "прошуто" };
 
         [JsonProperty("name")]
         public string Name { get; set; } = "";
@@ -64,6 +79,15 @@ namespace VkusotiikiCrawler
             TrimTitle();
             FindAlergies();
             FindDifficulty();
+            FixIngredientsNames();
+        }
+
+        private void FixIngredientsNames()
+        {
+            foreach (var ingredient in Ingredients)
+            {
+                ingredient.Name = ingredient.Name.Trim();
+            }
         }
 
         private void FindDifficulty()
@@ -128,15 +152,30 @@ namespace VkusotiikiCrawler
 
         private void FixInstructions()
         {
-            // todo: add the same for : , - (&ndash;) etc
-            string pattern1 = @"\.\s?";
-            string replacement1 = ". ";
-            string pattern2 = @"!\s?";
-            string replacement2 = "! ";
-            Regex rgx1 = new Regex(pattern1);
-            Description = rgx1.Replace(Description, replacement1);
-            Regex rgx2 = new Regex(pattern2);
-            Description = rgx2.Replace(Description, replacement2);
+            string fracPattern = @"([ ]*)?&frac(?<num>(\d)*);([ ]*)?";
+            Regex fracRegex = new Regex(fracPattern);
+            MatchCollection fracMaches = null;
+
+            if (fracRegex.IsMatch(Description))
+            {
+                fracMaches = fracRegex.Matches(Description);
+
+                foreach (Match match in fracMaches)
+                {
+                    var fracNumbers = match.Groups["num"].Value;
+                    //int matchIndex = match.Index + match.Length;
+                    //string fracNumbers = Description.Substring(matchIndex, );
+                    string fracResult = " " + fracNumbers[0] + "/" + fracNumbers[1] + " ";
+                    Description = Regex.Replace(Description, match.ToString(), fracResult);
+                }
+            }
+
+
+            foreach (var item in InstructionFixes)
+            {
+                Regex regex = new Regex(item.Key);
+                Description = regex.Replace(Description, item.Value);
+            }
         }
     }
 }

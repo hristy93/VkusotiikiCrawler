@@ -60,8 +60,8 @@ namespace VkusotiikiCrawler
 
             UnstructuredData = ingredients;
             FindAlergies();
+            FixIngredientName();
         }
-
 
         private void FindAlergies()
         {
@@ -77,5 +77,7 @@ namespace VkusotiikiCrawler
                 }
             }
         }
+
+        private void FixIngredientName() => Name = Name.Trim();
     }
 }

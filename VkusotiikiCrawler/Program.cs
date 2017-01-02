@@ -24,7 +24,7 @@ namespace VkusotiikiCrawler
 
         static void Main(string[] args)
         {
-            // Пилешки крилца с маслини и печени чушки
+            // Пълнени пуешки бутчета в гърне
             IRecipeWebsite recipeWebsite = new KulinarBg();
             VkusotiikiCrawler crawler = new VkusotiikiCrawler(recipeWebsite);
             crawler.RunCrawler();
@@ -36,7 +36,8 @@ namespace VkusotiikiCrawler
                 ipAddress = args[0];
                 port = Int32.Parse(args[1]);
             }
-            GetJsonRpcRequests(ipAddress, port);
+            //GetJsonRpcRequests(ipAddress, port);
+            crawler.RunCrawler();
             //crawler.RunCrawler(RECIPES_COUNT_LIMIT);
             //TestSmth();
         }
