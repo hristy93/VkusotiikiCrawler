@@ -83,12 +83,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseCommunication\CrawlerRecipesService.cs" />
-    <Compile Include="DatabaseCommunication\ThriftServer.cs" />
+    <Compile Include="Communication\CrawlerRecipesService.cs" />
+    <Compile Include="Communication\ThriftServer.cs" />
     <Compile Include="Interfaces\ICrawlerRecipesService.cs" />
     <Compile Include="RecipeData\Ingredient.cs" />
     <Compile Include="Interfaces\IRecipeWebsite.cs" />
-    <Compile Include="DatabaseCommunication\ThriftRecipesService.cs" />
+    <Compile Include="Communication\ThriftRecipesService.cs" />
     <Compile Include="Utilities\JSONManager.cs" />
     <Compile Include="RecipeWebsites\KulinarBg.cs" />
     <Compile Include="Program.cs" />
@@ -104,10 +104,55 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Recipes\new\old\old1\recipes.json" />
+    <None Include="Recipes\new\old\old1\recipes_371_refined.json" />
+    <None Include="Recipes\new\old\old1\recipes_422.json" />
+    <None Include="Recipes\new\old\old1\recipes_422_refined.json" />
+    <None Include="Recipes\new\old\old1\recipes_430.json" />
+    <None Include="Recipes\new\old\old1\recipes_440.json" />
+    <None Include="Recipes\new\old\old1\recipes_446.json" />
+    <None Include="Recipes\new\old\old1\recipes_454.json" />
+    <None Include="Recipes\new\old\old1\recipes_461.json" />
+    <None Include="Recipes\new\old\old1\recipes_466.json" />
+    <None Include="Recipes\new\old\old1\recipes_475.json" />
+    <None Include="Recipes\new\old\old1\recipes_479.json" />
+    <None Include="Recipes\new\old\old1\recipes_481.json" />
+    <None Include="Recipes\new\old\old1\recipes_484.json" />
+    <None Include="Recipes\new\old\old1\recipes_497.json" />
+    <None Include="Recipes\new\old\old1\recipes_504.json" />
+    <None Include="Recipes\new\old\old1\recipes_523.json" />
+    <None Include="Recipes\new\old\old1\recipes_534.json" />
+    <None Include="Recipes\new\old\old1\recipes_551.json" />
+    <None Include="Recipes\new\old\old1\recipes_568.json" />
+    <None Include="Recipes\new\old\old1\recipes_580.json" />
+    <None Include="Recipes\new\old\old1\recipes_584.json" />
+    <None Include="Recipes\new\old\old1\recipes_584_refined.json" />
+    <None Include="Recipes\new\recipes.json" />
     <None Include="Recipes\new\recipes_371_refined - Copy.json" />
     <None Include="Recipes\new\recipes_371_refined.json" />
+    <None Include="Recipes\new\recipes_453.json" />
+    <None Include="Recipes\new\recipes_453_refined.json" />
+    <None Include="Recipes\new\recipes_459.json" />
+    <None Include="Recipes\new\recipes_468.json" />
+    <None Include="Recipes\new\recipes_486.json" />
+    <None Include="Recipes\new\recipes_489.json" />
+    <None Include="Recipes\new\recipes_506.json" />
+    <None Include="Recipes\new\recipes_533.json" />
+    <None Include="Recipes\new\recipes_555.json" />
+    <None Include="Recipes\new\recipes_562.json" />
+    <None Include="Recipes\new\recipes_576.json" />
+    <None Include="Recipes\new\recipes_587.json" />
+    <None Include="Recipes\new\recipes_593.json" />
     <None Include="Recipes\new\recipes_609 - Copy.json" />
     <None Include="Recipes\new\recipes_609.json" />
+    <None Include="Recipes\new\recipes_629.json" />
+    <None Include="Recipes\new\recipes_647.json" />
+    <None Include="Recipes\new\recipes_656.json" />
+    <None Include="Recipes\new\recipes_675.json" />
+    <None Include="Recipes\new\recipes_682.json" />
+    <None Include="Recipes\new\recipes_689.json" />
+    <None Include="Recipes\new\recipes_703.json" />
+    <None Include="Recipes\new\recipes_703_refined.json" />
     <None Include="Recipes\old\old1\recipes_120.json" />
     <None Include="Recipes\old\old1\recipes_136.json" />
     <None Include="Recipes\old\old1\recipes_160.json" />

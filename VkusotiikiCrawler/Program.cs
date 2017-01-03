@@ -27,18 +27,18 @@ namespace VkusotiikiCrawler
             // Пълнени пуешки бутчета в гърне
             IRecipeWebsite recipeWebsite = new KulinarBg();
             VkusotiikiCrawler crawler = new VkusotiikiCrawler(recipeWebsite);
-            crawler.RunCrawler();
-            //string ipAddress = "127.0.0.1";
-            string ipAddress = "192.168.0.108";
-            int port = 9090;
+            string ipAddress = "127.0.0.1";
+            //string ipAddress = "192.168.0.108";
+            int port = 3333;
             if (args.Count() != 0)
             {
                 ipAddress = args[0];
                 port = Int32.Parse(args[1]);
             }
-            //GetJsonRpcRequests(ipAddress, port);
-            crawler.RunCrawler();
+
+            //crawler.RunCrawler();
             //crawler.RunCrawler(RECIPES_COUNT_LIMIT);
+            GetJsonRpcRequests(ipAddress, port);
             //TestSmth();
         }
 
@@ -48,6 +48,8 @@ namespace VkusotiikiCrawler
             //recipe.FixRecipeProblems();
             //string str = "Еклери";
             //bool valid = Recipe.FORBIDDEN_TITLES.Any(s => str.ToLower().Contains(s));
+            var name = "черен пипер млян ";
+            name = name.Trim();
         }
 
         private static void GetJsonRpcRequests(string ipAddress, int port)

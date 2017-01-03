@@ -20,6 +20,11 @@ namespace VkusotiikiCrawler
         {
             IpAddress = ipAddress;
             Port = port;
+            JSONManager manager = new JSONManager(VkusotiikiCrawler.JSON_FILE_PATH);
+            if (VkusotiikiCrawler.Recipes.Count == 0)
+            {
+                VkusotiikiCrawler.Recipes = manager.ReadRecipes();
+            }
         }
 
         public void Start()
