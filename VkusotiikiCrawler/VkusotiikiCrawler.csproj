@@ -97,6 +97,7 @@
     <Compile Include="RecipeWebsites\ReceptiteBg.cs" />
     <Compile Include="RecipeData\Recipe.cs" />
     <Compile Include="Utilities\RecipesFixer.cs" />
+    <Compile Include="Utilities\StaticRandom.cs" />
     <Compile Include="Utilities\VkusotiikiCrawler.cs" />
   </ItemGroup>
   <ItemGroup>

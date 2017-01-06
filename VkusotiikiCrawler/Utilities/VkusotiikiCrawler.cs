@@ -44,8 +44,8 @@ namespace VkusotiikiCrawler
             int initialRecipesCount = Recipes.Count();
             JSONManager manager = new JSONManager(JSON_FILE_PATH);
             Recipes = manager.ReadRecipes();
-            //InitiateCrawler();
-            //StartCrawler();
+            InitiateCrawler();
+            StartCrawler();
             _recipesFixer.FixRecipes(Recipes);
             _recipesFixer.TrimRecipes(Recipes);
             if (initialRecipesCount != Recipes.Count())
@@ -56,7 +56,6 @@ namespace VkusotiikiCrawler
 
         public void StartCrawler()
         {
-            //This is synchronous, it will not go to the next line until the crawl has completed
             CrawlResult result = _crawler.Crawl(new Uri(_URLPath));
 
             if (result.ErrorOccurred)
@@ -71,9 +70,7 @@ namespace VkusotiikiCrawler
             crawlConfig.CrawlTimeoutSeconds = 100;
             crawlConfig.MaxConcurrentThreads = 10;
             crawlConfig.MaxPagesToCrawl = 1000;
-            //crawlConfig.UserAgentString = "abot v1.0 http://code.google.com/p/abot";
 
-            //Will use the manually created crawlConfig object created above
             _crawler = new PoliteWebCrawler(crawlConfig, null, null, null, null, null, null, null, null);
 
             _crawler.PageCrawlStartingAsync += crawler_ProcessPageCrawlStarting;
@@ -101,12 +98,11 @@ namespace VkusotiikiCrawler
                 Console.WriteLine("Page had no content {0}", crawledPage.Uri.AbsoluteUri);
 
             var htmlAgilityPackDocument = crawledPage.HtmlDocument; //Html Agility Pack parser
-            var angleSharpHtmlDocument = crawledPage.AngleSharpHtmlDocument; //AngleSharp parser
+            //var angleSharpHtmlDocument = crawledPage.AngleSharpHtmlDocument; //AngleSharp parser
 
             _recipeWebsite.GetRecipeDataFromHTML(htmlAgilityPackDocument, Recipes);
             //ReceptiteBg(htmlAgilityPackDocument);
             //ReceptiteGotvachBg(htmlAgilityPackDocument);
-
         }
 
         private void crawler_PageLinksCrawlDisallowed(object sender, PageLinksCrawlDisallowedArgs e)

@@ -26,7 +26,10 @@ namespace VkusotiikiCrawler
                     {
                         var unit = item.ChildNodes[1].InnerText;
                         var quantity = item.ChildNodes[2].InnerText;
-                        recipeIngredients.Add(unit + " " + quantity);
+                        if (!String.IsNullOrWhiteSpace(quantity) || !String.IsNullOrWhiteSpace(unit))
+                        {
+                            recipeIngredients.Add(unit + " " + quantity); 
+                        }
                     }
                 }
 

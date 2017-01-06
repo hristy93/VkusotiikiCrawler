@@ -10,6 +10,16 @@ namespace VkusotiikiCrawler
 {
     public class Recipe
     {
+
+        public static readonly string[] USER_IDS = new string[]
+        {
+            "170f7163-6da9-4536-b8d6-cf588abc8c1e",
+            "8ff53edb-4442-4880-a9f8-89bc7218b692",
+            "bc6e69b9-6162-4e69-8028-900abfb9030e",
+            "f121925d-d296-4818-870f-5f453389c4a8",
+            "fffae408-45a8-42e0-a361-2c5c0735645f",
+        };
+
         public static readonly Dictionary<string, string> InstructionFixes = new Dictionary<string, string>()
             {
                 { @"\.\s?", ". " },
@@ -38,6 +48,8 @@ namespace VkusotiikiCrawler
         "сръбск", "крилца", "маршмелоу", "герман", "сельодка", "щрудел", "гулаш", "унгарск", "касерола", "мексик", "кордон-бльо", "булгур",
         "джалеби", "бразил", "тирамису", "америка", "кренвирш", "паеля", "рьощ", "тортийа", "тортия", "плескавиц", "прошуто" };
 
+        private static Random _random = StaticRandom.Instance;
+
         [JsonProperty("name")]
         public string Name { get; set; } = "";
 
@@ -57,7 +69,7 @@ namespace VkusotiikiCrawler
         public int Servings { get; set; } = 1;
 
         [JsonProperty("user")]
-        public int User { get; set; } = 1;
+        public string User { get; set; } = "";
 
         [JsonProperty("category")]
         public int Category { get; set; } = 1;
@@ -80,6 +92,17 @@ namespace VkusotiikiCrawler
             FindAlergies();
             FindDifficulty();
             FixIngredientsNames();
+            FixUserIds();
+        }
+
+        private void FixUserIds()
+        {
+            if (String.IsNullOrEmpty(User) || User == "1")
+            {
+                int randomUserIdIndex = _random.Next(0, USER_IDS.Count());
+                string userId = USER_IDS[randomUserIdIndex];
+                User = userId; 
+            }
         }
 
         private void FixIngredientsNames()
@@ -163,8 +186,6 @@ namespace VkusotiikiCrawler
                 foreach (Match match in fracMaches)
                 {
                     var fracNumbers = match.Groups["num"].Value;
-                    //int matchIndex = match.Index + match.Length;
-                    //string fracNumbers = Description.Substring(matchIndex, );
                     string fracResult = " " + fracNumbers[0] + "/" + fracNumbers[1] + " ";
                     Description = Regex.Replace(Description, match.ToString(), fracResult);
                 }
