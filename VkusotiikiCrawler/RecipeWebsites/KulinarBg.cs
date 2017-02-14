@@ -66,6 +66,12 @@ namespace VkusotiikiCrawler
                     {
                         newRecipe.Ingredients.Add(new Ingredient(item));
                     }
+
+                    if (String.IsNullOrWhiteSpace(recipeDuration))
+                    {
+                        recipeDuration = "40 мин.";
+                    }
+
                     newRecipe.Duration = recipeDuration;
                     newRecipe.Servings = Int32.Parse(recipeServings);
                     newRecipe.FixRecipeProblems();

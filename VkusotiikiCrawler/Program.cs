@@ -16,7 +16,6 @@ namespace VkusotiikiCrawler
 
         static void Main(string[] args)
         {
-            // Пълнени пуешки бутчета в гърне
             IRecipeWebsite recipeWebsite = new KulinarBg();
             VkusotiikiCrawler crawler = new VkusotiikiCrawler(recipeWebsite);
             string ipAddress = "127.0.0.1";
@@ -28,16 +27,12 @@ namespace VkusotiikiCrawler
                 port = Int32.Parse(args[1]);
             }
 
+            // starts the crawler or one run or until some recipe count limit is reached
             crawler.RunCrawler();
             //crawler.RunCrawler(RECIPES_COUNT_LIMIT);
-            //GetJsonRpcRequests(ipAddress, port);
-        }
- 
 
-        private static void GetJsonRpcRequests(string ipAddress, int port)
-        {
-            var server = new ThriftServer(ipAddress, port);
-            server.Start();
+            // starts a Apache Thrit server for listening on a IP Address and a port number
+            //new ThriftServer(ipAddress, port).Start();
         }
     }
 }
