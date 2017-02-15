@@ -55,7 +55,7 @@ namespace VkusotiikiCrawler
             {
                 Quantity = splittedIngredients[0];
                 Unit = splittedIngredients[1];
-                string ingredientName = "";
+                string ingredientName = String.Empty;
                 for (int i = 2; i < splittedIngredients.Count(); i++)
                 {
                     ingredientName += splittedIngredients[i] + " ";

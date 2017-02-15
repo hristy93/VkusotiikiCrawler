@@ -31,7 +31,7 @@ namespace VkusotiikiCrawler
                 { "([ ]*)?&ldquo;([ ]*)?", " \""},
                 { "([ ]*)?&rdquo;([ ]*)?", "\" "},
                 { "([ ]*)&bdquo;([ ]*)?", " \""},
-                { "([ ]*)&deg;([ ]*)?", ""},
+                { "([ ]*)&deg;([ ]*)?", String.Empty},
                 { "([ ]*)&quot;([ ]*)?", " \" "}
             };
 
@@ -54,13 +54,13 @@ namespace VkusotiikiCrawler
         private static Random _random = StaticRandom.Instance;
 
         [JsonProperty("name")]
-        public string Name { get; set; } = "";
+        public string Name { get; set; } = String.Empty;
 
         [JsonProperty("description")]
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = String.Empty;
 
         [JsonProperty("duration")]
-        public string Duration { get; set; } = "0";
+        public string Duration { get; set; } = String.Empty;
 
         [JsonProperty("ingredients")]
         public List<Ingredient> Ingredients { get; set; }
@@ -72,7 +72,7 @@ namespace VkusotiikiCrawler
         public int Servings { get; set; } = 1;
 
         [JsonProperty("user")]
-        public string User { get; set; } = "";
+        public string User { get; set; } = String.Empty;
 
         [JsonProperty("category")]
         public int Category { get; set; } = 1;
@@ -145,11 +145,11 @@ namespace VkusotiikiCrawler
         {
             if (Name != null)
             {
-                string pattern1 = @"(\r\n)*";
-                string pattern2 = @"(\d)?( )*(\d)*$";
+                string newLinePattern = @"(\r\n)*";
+                string numbersPattern = @"(\d)?( )*(\d)*$";
                 string replacement = "";
-                Regex rgx1 = new Regex(pattern1);
-                Regex rgx2 = new Regex(pattern2);
+                Regex rgx1 = new Regex(newLinePattern);
+                Regex rgx2 = new Regex(numbersPattern);
                 Name = rgx1.Replace(Name, replacement);
                 Name = rgx2.Replace(Name, replacement);
                 Name = Name.TrimStart(' ');
@@ -180,13 +180,13 @@ namespace VkusotiikiCrawler
         {
             string fracPattern = @"([ ]*)?&frac(?<num>(\d)*);([ ]*)?";
             Regex fracRegex = new Regex(fracPattern);
-            MatchCollection fracMaches = null;
+            MatchCollection fracMatches = null;
 
             if (fracRegex.IsMatch(Description))
             {
-                fracMaches = fracRegex.Matches(Description);
+                fracMatches = fracRegex.Matches(Description);
 
-                foreach (Match match in fracMaches)
+                foreach (Match match in fracMatches)
                 {
                     var fracNumbers = match.Groups["num"].Value;
                     string fracResult = " " + fracNumbers[0] + "/" + fracNumbers[1] + " ";
