@@ -13,6 +13,8 @@ namespace VkusotiikiCrawler
 {
     public class ThriftServer
     {
+        private List<Recipe> _recipes;
+
         public string IpAddress { get; set; }
         public int Port { get; set; }
 
@@ -20,11 +22,9 @@ namespace VkusotiikiCrawler
         {
             IpAddress = ipAddress;
             Port = port;
+            
             JSONManager manager = new JSONManager(VkusotiikiCrawler.JSON_FILE_PATH);
-            if (VkusotiikiCrawler.Recipes.Count == 0)
-            {
-                VkusotiikiCrawler.Recipes = manager.ReadRecipes();
-            }
+            _recipes = manager.ReadRecipes();
         }
 
         public void Start()
@@ -32,6 +32,7 @@ namespace VkusotiikiCrawler
             try
             {
                 CrawlerRecipesService service = new CrawlerRecipesService();
+                service.GetRecipes(_recipes);
                 ThriftRecipesService.Processor processor = new ThriftRecipesService.Processor(service);
                 TcpListener tcpListener = new TcpListener(IPAddress.Parse(IpAddress), Port);
                 TServerTransport serverTransport = new TServerSocket(tcpListener);

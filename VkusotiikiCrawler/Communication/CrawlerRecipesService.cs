@@ -9,9 +9,13 @@ namespace VkusotiikiCrawler
 {
     public class CrawlerRecipesService : ThriftRecipesService.Iface, ICrawlerRecipesService
     {
+        private List<Recipe> _recipes;
+
+        public void GetRecipes(List<Recipe> recipes) => _recipes = recipes;
+
         public string GetRecipeData()
         {
-            var recipesToJson = JsonConvert.SerializeObject(VkusotiikiCrawler.Recipes);
+            var recipesToJson = JsonConvert.SerializeObject(_recipes);
             return recipesToJson;
         }
     }

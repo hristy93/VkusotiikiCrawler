@@ -13,7 +13,7 @@ namespace VkusotiikiCrawler
     {
         public const string JSON_FILE_PATH = @"../../Recipes/new/recipes.json";
 
-        public static List<Recipe> Recipes;
+        public List<Recipe> Recipes { get; set; }
 
         private string _URLPath;
         private PoliteWebCrawler _crawler;
